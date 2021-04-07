@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.sitrumm</groupId>
+	<artifactId>corona-rki</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>corona-rki</name>
+	<description>Demo project for Spring Boot</description>
+	<packaging>jar</packaging>
+
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.4.3</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+
+	<properties>
+		<java.version>1.8</java.version>
+		<vaadin.version>14.0.0</vaadin.version>
+	</properties>
+
+	<pluginRepositories>
+		<pluginRepository>
+			<id>vaadin-prereleases</id>
+			<url>https://maven.vaadin.com/vaadin-prereleases</url>
+		</pluginRepository>
+	</pluginRepositories>
+
+	<repositories>
+		<repository>
+			<id>vaadin-prereleases</id>
+			<url>https://maven.vaadin.com/vaadin-prereleases</url>
+		</repository>
+	</repositories>
+
+	<dependencies>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+			<version>2.4.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.18.18</version>
+		</dependency>
+
+<!--		<dependency>-->
+<!--			<groupId>com.google.code.gson</groupId>-->
+<!--			<artifactId>gson</artifactId>-->
+<!--			<version>2.8.6</version>-->
+<!--		</dependency>-->
+
+		<dependency>
+			<groupId>com.vaadin</groupId>
+			<artifactId>vaadin-spring-boot-starter</artifactId>
+			<version>18.0.6</version>
+		</dependency>
+		<dependency>
+			<groupId>com.vaadin</groupId>
+			<artifactId>vaadin-bom</artifactId>
+			<type>pom</type>
+			<version>${vaadin.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+		</dependency>
+
+		<!--	Test dependencies	-->
+
+		<!-- Junit 5 -->
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-api</artifactId>
+			<version>5.7.1</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-engine</artifactId>
+			<version>5.7.1</version>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- Mockito -->
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
+			<version>2.21.0</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-junit-jupiter</artifactId>
+			<version>2.23.0</version>
+			<scope>test</scope>
+		</dependency>
+
+	</dependencies>
+
+	<build>
+		<plugins>
+
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+
+<!--			<plugin>-->
+<!--				<groupId>com.vaadin</groupId>-->
+<!--				<artifactId>vaadin-maven-plugin</artifactId>-->
+<!--				<version>14.4.0</version>-->
+<!--			</plugin>-->
+
+		</plugins>
+	</build>
+
+	<profiles>
+		<profile>
+			<id>productionMode</id>
+			<activation>
+				<property>
+					<name>vaadin.productionMode</name>
+				</property>
+			</activation>
+
+			<dependencies>
+				<dependency>
+					<groupId>com.vaadin</groupId>
+					<artifactId>flow-server-production-mode</artifactId>
+				</dependency>
+			</dependencies>
+
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>com.vaadin</groupId>
+						<artifactId>flow-maven-plugin</artifactId>
+						<version>${flow.maven.plugin.version}</version>
+						<executions>
+							<execution>
+								<goals>
+									<goal>copy-production-files</goal>
+									<goal>package-for-production</goal>
+								</goals>
+								<configuration>
+									<transpileOutputDirectory>${webapp.directory}</transpileOutputDirectory>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+
+					<plugin>
+						<groupId>org.springframework.boot</groupId>
+						<artifactId>spring-boot-maven-plugin</artifactId>
+						<configuration>
+							<jvmArguments>-Dvaadin.productionMode</jvmArguments>
+						</configuration>
+					</plugin>
+
+					<plugin>
+						<artifactId>maven-surefire-plugin</artifactId>
+						<version>2.19.1</version>
+						<dependencies>
+							<dependency>
+								<groupId>org.junit.platform</groupId>
+								<artifactId>junit-platform-surefire-provider</artifactId>
+								<version>1.0.1</version>
+							</dependency>
+						</dependencies>
+					</plugin>
+
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+
+</project>
