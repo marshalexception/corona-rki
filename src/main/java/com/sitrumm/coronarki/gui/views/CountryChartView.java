@@ -20,11 +20,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
-public class CountryChart extends Chart {
+public class CountryChartView extends Chart {
 
     private final List<DayCountryEntity> rkiData;
 
-    public CountryChart(List<DayCountryEntity> rkiData) {
+    public CountryChartView(List<DayCountryEntity> rkiData) {
         this.rkiData = rkiData;
         createBarChart(14L);
     }

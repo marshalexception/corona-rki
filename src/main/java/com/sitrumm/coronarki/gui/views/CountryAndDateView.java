@@ -51,7 +51,7 @@ public class CountryAndDateView extends VerticalLayout implements ComponentEvent
 
     private Grid<DayCountryEntity> rkiDataGrid;
 
-    private CountryChart countryChart;
+    private CountryChartView countryChartView;
 
     public CountryAndDateView() {
         initGUI();
@@ -108,12 +108,12 @@ public class CountryAndDateView extends VerticalLayout implements ComponentEvent
         datePicker = new DatePicker("Filter by date: ");
         datePicker.addValueChangeListener(event -> applyFilter(dataProvider, event));
 
-        countryChart = new CountryChart(rkiData);
+        countryChartView = new CountryChartView(rkiData);
 
         VerticalLayout searchWithGrid = new VerticalLayout(
                 filterForCountry, searchButton, new Hr(),
                 countrySummary, new Hr(),
-                countryChart, new Hr(),
+                countryChartView, new Hr(),
                 datePicker, rkiDataGrid);
 
         if (accordionPanel.isAttached()) {
