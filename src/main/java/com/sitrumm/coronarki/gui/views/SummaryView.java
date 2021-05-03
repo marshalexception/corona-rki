@@ -1,7 +1,7 @@
 package com.sitrumm.coronarki.gui.views;
 
-import com.sitrumm.coronarki.model.covid.GlobalEntity;
-import com.sitrumm.coronarki.model.covid.SummaryEntity;
+import com.sitrumm.coronarki.model.GlobalEntity;
+import com.sitrumm.coronarki.model.SummaryEntity;
 import com.sitrumm.coronarki.service.CovidService;
 import com.vaadin.flow.component.accordion.Accordion;
 import com.vaadin.flow.component.accordion.AccordionPanel;

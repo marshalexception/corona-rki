@@ -1,6 +1,6 @@
 package com.sitrumm.coronarki.gui.views;
 
-import com.sitrumm.coronarki.model.covid.DayCountryEntity;
+import com.sitrumm.coronarki.model.DayCountryEntity;
 import com.sitrumm.coronarki.service.CovidService;
 import com.vaadin.flow.component.AbstractField;
 import com.vaadin.flow.component.ClickEvent;

@@ -1,6 +1,6 @@
 package com.sitrumm.coronarki.gui.views;
 
-import com.sitrumm.coronarki.model.covid.DayCountryEntity;
+import com.sitrumm.coronarki.model.DayCountryEntity;
 import com.vaadin.flow.component.charts.Chart;
 import com.vaadin.flow.component.charts.model.AxisTitle;
 import com.vaadin.flow.component.charts.model.ChartType;

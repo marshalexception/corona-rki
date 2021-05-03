@@ -2,8 +2,8 @@ package com.sitrumm.coronarki;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sitrumm.coronarki.model.covid.DayCountryEntity;
-import com.sitrumm.coronarki.model.covid.SummaryEntity;
+import com.sitrumm.coronarki.model.DayCountryEntity;
+import com.sitrumm.coronarki.model.SummaryEntity;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
