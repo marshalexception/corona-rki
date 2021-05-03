@@ -1,4 +1,4 @@
-package com.sitrumm.coronarki.model.rki;
+package com.sitrumm.coronarki.model.covid;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;

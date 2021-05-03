@@ -3,35 +3,35 @@ package com.sitrumm.coronarki.service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sitrumm.coronarki.model.rki.DayCountryEntity;
-import com.sitrumm.coronarki.model.rki.SummaryEntity;
+import com.sitrumm.coronarki.model.covid.DayCountryEntity;
+import com.sitrumm.coronarki.model.covid.SummaryEntity;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Service
+@Component
 @Slf4j
-public class RkiService {
+public class CovidService {
 
-    @Value("${rki.basepath}")
+    @Value("${covid.basepath}")
     private String basePath;
 
-    @Value("${rki.path.dayone.bycountry}")
+    @Value("${covid.path.dayone.bycountry}")
     private String countryDayOnePath;
 
-    @Value("${rki.path.summary}")
+    @Value("${covid.path.summary}")
     private String summaryPath;
 
     private final RestTemplate restTemplate;
 
-    public RkiService(RestTemplateBuilder restTemplateBuilder) {
+    public CovidService(RestTemplateBuilder restTemplateBuilder) {
         this.restTemplate = restTemplateBuilder.build();
     }
 
@@ -56,7 +56,8 @@ public class RkiService {
     private List<DayCountryEntity> buildDataByCountryResponse(String body) {
         List<DayCountryEntity> rkiData = null;
         try {
-            rkiData = new ObjectMapper().readValue(body, new TypeReference<List<DayCountryEntity>>() {});
+            rkiData = new ObjectMapper().readValue(body, new TypeReference<List<DayCountryEntity>>() {
+            });
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }

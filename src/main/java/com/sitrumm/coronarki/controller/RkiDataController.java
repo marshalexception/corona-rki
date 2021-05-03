@@ -15,7 +15,7 @@ import java.net.URL;
 @Controller
 public class RkiDataController {
 
-    @Value("${rki.basepath}")
+    @Value("${covid.basepath}")
     String basePath;
 
 //    @GetMapping("/")

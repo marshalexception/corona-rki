@@ -1,14 +1,15 @@
-package com.sitrumm.coronarki.model.rki;
+package com.sitrumm.coronarki.model.covid;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import lombok.ToString;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Getter
@@ -50,7 +51,7 @@ public class DayCountryEntity implements Serializable {
     Long active;
 
     @JsonProperty("Date")
-//    @JsonDeserialize(using = DateHandler.class)
-    Date date;
+    @JsonDeserialize(using = LocalDateDeserializer.class)
+    LocalDate date;
 
 }
