@@ -53,7 +53,7 @@ public class MainView extends VerticalLayout implements AppShellConfigurator {
     @PostConstruct
     private void fillGUI() {
         summaryView.fillGUI(covidService);
-        countryAndDateView.setService(covidService);
+        countryAndDateView.setServiceAndInitData(covidService);
     }
 
 }
