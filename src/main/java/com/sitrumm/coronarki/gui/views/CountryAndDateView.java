@@ -51,14 +51,15 @@ public class CountryAndDateView extends VerticalLayout implements ComponentEvent
 
     private Grid<DayCountryEntity> rkiDataGrid;
 
-    private CountryChartView countryChartView;
+    private CountryBarChartView countryBarChartView;
+    private CountryLineChartView countryLineChartView;
 
     public CountryAndDateView() {
         initGUI();
     }
 
     private void initGUI() {
-        this.filterForCountry = new Select<>("France", "Germany", "South-Africa"); // todo
+        this.filterForCountry = new Select<>("France", "Germany", "India", "South-Africa"); // todo
         filterForCountry.setLabel("Country");
         filterForCountry.setHelperText("Select a country to display the current coronavirus data.");
 
@@ -108,12 +109,14 @@ public class CountryAndDateView extends VerticalLayout implements ComponentEvent
         datePicker = new DatePicker("Filter by date: ");
         datePicker.addValueChangeListener(event -> applyFilter(dataProvider, event));
 
-        countryChartView = new CountryChartView(rkiData);
+        countryBarChartView = new CountryBarChartView(rkiData, 14L); // todo: create gui element to dynamically set the value
+        countryLineChartView = new CountryLineChartView(rkiData, 14L); // todo: create gui element to dynamically set the value
 
         VerticalLayout searchWithGrid = new VerticalLayout(
                 filterForCountry, searchButton, new Hr(),
                 countrySummary, new Hr(),
-                countryChartView, new Hr(),
+                countryBarChartView, new Hr(),
+                countryLineChartView, new Hr(),
                 datePicker, rkiDataGrid);
 
         if (accordionPanel.isAttached()) {
