@@ -31,3 +31,13 @@ build/
 
 ### VS Code ###
 .vscode/
+
+.mvn
+config
+node_modules
+
+### Vaadin ###
+package.json
+pnpm-lock.yaml
+pnpmfile.js
+webpack.generated.js

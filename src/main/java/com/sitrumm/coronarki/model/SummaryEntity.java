@@ -1,15 +1,15 @@
-package com.sitrumm.coronarki.model.rki;
+package com.sitrumm.coronarki.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.AllArgsConstructor;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import lombok.ToString;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -31,5 +31,6 @@ public class SummaryEntity implements Serializable {
     List<CountryEntity> countries;
 
     @JsonProperty("Date")
-    Date date;
+    @JsonDeserialize(using = LocalDateDeserializer.class)
+    LocalDate date;
 }
