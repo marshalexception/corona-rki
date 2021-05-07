@@ -18,10 +18,11 @@ import com.vaadin.flow.component.html.ListItem;
 import com.vaadin.flow.component.html.UnorderedList;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.notification.Notification;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.provider.ListDataProvider;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 
 import java.text.NumberFormat;
 import java.time.LocalDate;
@@ -32,10 +33,7 @@ import java.util.Objects;
 @Slf4j
 public class CountryAndDateView extends VerticalLayout implements ComponentEventListener<ClickEvent<Button>> {
 
-    private CovidService covidService;
-
-    @Value("${error.no_filter_selected}")
-    private String NO_FILTER_SELECTED;
+    private transient CovidService covidService;
 
     // GUI
 
@@ -45,6 +43,8 @@ public class CountryAndDateView extends VerticalLayout implements ComponentEvent
 
     private ComboBox<String> filterForCountry;
 
+    private TextField dayRangeTextField;
+
     private Button searchButton;
 
     private VerticalLayout countrySummary;
@@ -52,9 +52,6 @@ public class CountryAndDateView extends VerticalLayout implements ComponentEvent
     private DatePicker datePicker;
 
     private Grid<DayCountryEntity> rkiDataGrid;
-
-    private CountryBarChartView countryBarChartView;
-    private CountryLineChartView countryLineChartView;
 
     public CountryAndDateView() {
         initGUI();
@@ -65,12 +62,20 @@ public class CountryAndDateView extends VerticalLayout implements ComponentEvent
         filterForCountry.setLabel("Country");
         filterForCountry.setHelperText("Select a country to display the current coronavirus data.");
 
+        dayRangeTextField = new TextField();
+        dayRangeTextField.setLabel("Days");
+        dayRangeTextField.setHelperText("Select day range to display the current coronavirus data (default 14).");
+        dayRangeTextField.setPattern("[0-9]*");
+        dayRangeTextField.setPreventInvalidInput(true);
+        dayRangeTextField.setRequiredIndicatorVisible(true);
+
         this.searchButton = new Button("Search RKI data", VaadinIcon.SEARCH.create());
         searchButton.addClickListener(this);
 
         countryAndDateAccordion = new Accordion();
         countryAndDateAccordion.setWidthFull();
-        VerticalLayout searchWithoutGrid = new VerticalLayout(filterForCountry, searchButton);
+        HorizontalLayout searchParameterGrid = new HorizontalLayout(filterForCountry, dayRangeTextField);
+        VerticalLayout searchWithoutGrid = new VerticalLayout(searchParameterGrid, searchButton);
         accordionPanel = new AccordionPanel("Search for Country and Date", searchWithoutGrid);
         countryAndDateAccordion.add(accordionPanel).addThemeVariants(DetailsVariant.FILLED);
         countryAndDateAccordion.close();
@@ -84,10 +89,13 @@ public class CountryAndDateView extends VerticalLayout implements ComponentEvent
             if (filterForCountry.getValue() != null) {
                 String searchCountry = filterForCountry.getValue().toLowerCase();
                 List<DayCountryEntity> rkiData = covidService.getDataByCountryDayOne(searchCountry);
-                fillGrid(rkiData);
+                if (!dayRangeTextField.getValue().isEmpty()) {
+                    fillGrid(rkiData, Long.parseLong(dayRangeTextField.getValue()));
+                } else {
+                    fillGrid(rkiData, 14L);
+                }
             } else {
-                // todo
-                Notification notification = new Notification(NO_FILTER_SELECTED);
+                Notification notification = new Notification("No country selected. Please select one to search for their current data.", 3000);
                 notification.open();
             }
         }
@@ -108,7 +116,8 @@ public class CountryAndDateView extends VerticalLayout implements ComponentEvent
         return countries;
     }
 
-    private void fillGrid(List<DayCountryEntity> rkiData) {
+    @SuppressWarnings("deprecation")
+    private void fillGrid(List<DayCountryEntity> rkiData, Long days) {
         createSummaryForCountry(rkiData);
 
         rkiDataGrid = new Grid<>(DayCountryEntity.class);
@@ -120,11 +129,15 @@ public class CountryAndDateView extends VerticalLayout implements ComponentEvent
         datePicker = new DatePicker("Filter by date: ");
         datePicker.addValueChangeListener(event -> applyFilter(dataProvider, event));
 
-        countryBarChartView = new CountryBarChartView(rkiData, 14L); // todo: create gui element to dynamically set the value
-        countryLineChartView = new CountryLineChartView(rkiData, 14L); // todo: create gui element to dynamically set the value
+        CountryBarChartView countryBarChartView = new CountryBarChartView(rkiData, days);
+        CountryLineChartView countryLineChartView = new CountryLineChartView(rkiData, days);
+
+        HorizontalLayout searchParameterGrid = new HorizontalLayout();
+
+        searchParameterGrid.add(filterForCountry, dayRangeTextField);
 
         VerticalLayout searchWithGrid = new VerticalLayout(
-                filterForCountry, searchButton, new Hr(),
+                searchParameterGrid, searchButton, new Hr(),
                 countrySummary, new Hr(),
                 countryBarChartView, new Hr(),
                 countryLineChartView, new Hr(),
