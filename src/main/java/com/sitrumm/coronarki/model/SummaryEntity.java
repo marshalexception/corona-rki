@@ -28,7 +28,7 @@ public class SummaryEntity implements Serializable {
     GlobalEntity global;
 
     @JsonProperty("Countries")
-    List<CountryEntity> countries;
+    transient List<CountryEntity> countries;
 
     @JsonProperty("Date")
     @JsonDeserialize(using = LocalDateDeserializer.class)

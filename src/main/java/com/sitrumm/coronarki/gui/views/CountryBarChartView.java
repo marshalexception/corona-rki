@@ -52,6 +52,7 @@ public class CountryBarChartView extends Chart {
         configuration.setPlotOptions(plotOptions);
     }
 
+    @SuppressWarnings("ResultOfMethodCallIgnored")
     private Long[] getInfections(long days) {
         ArrayList<Long> infections = new ArrayList<>();
 
@@ -66,6 +67,7 @@ public class CountryBarChartView extends Chart {
         return calculateDayToDayDifference(infections);
     }
 
+    @SuppressWarnings("ResultOfMethodCallIgnored")
     private Long[] getRecovered(long days) {
         ArrayList<Long> recovered = new ArrayList<>();
 
@@ -80,6 +82,7 @@ public class CountryBarChartView extends Chart {
         return calculateDayToDayDifference(recovered);
     }
 
+    @SuppressWarnings("ResultOfMethodCallIgnored")
     private Long[] getActive(long days) {
         ArrayList<Long> active = new ArrayList<>();
 

@@ -22,7 +22,7 @@ import javax.annotation.PostConstruct;
 public class MainView extends VerticalLayout implements AppShellConfigurator {
 
     @Autowired
-    private CovidService covidService;
+    private transient CovidService covidService;
 
 
     private final SummaryView summaryView;

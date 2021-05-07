@@ -14,7 +14,7 @@ import java.text.NumberFormat;
 
 public class SummaryView extends VerticalLayout {
 
-    private CovidService covidService;
+    private transient CovidService covidService;
 
     // GUI
 

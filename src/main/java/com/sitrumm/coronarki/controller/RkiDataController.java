@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -18,13 +19,8 @@ public class RkiDataController {
     @Value("${covid.basepath}")
     String basePath;
 
-//    @GetMapping("/")
-//    public String homePage() {
-//        return "home";
-//    }
-
     @GetMapping("/rki")
-    public String fetchData(Model model) throws Exception {
+    public String fetchData(Model model) throws IOException {
         URL url = new URL(basePath);
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
         con.setRequestMethod("GET");
@@ -36,7 +32,7 @@ public class RkiDataController {
         return "data";
     }
 
-    private String parseJson(HttpURLConnection con) throws Exception {
+    private String parseJson(HttpURLConnection con) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader((con.getInputStream())));
 
         StringBuilder result = new StringBuilder();

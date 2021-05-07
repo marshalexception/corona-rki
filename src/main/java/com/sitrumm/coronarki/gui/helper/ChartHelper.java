@@ -15,6 +15,8 @@ import java.util.List;
 @Slf4j
 public class ChartHelper {
 
+    private ChartHelper() { }
+
     public static XAxis getXAxis(Long days, List<DayCountryEntity> rkiData) {
         XAxis x = new XAxis();
         x.setCategories(getDates(days + 1, rkiData));
@@ -31,6 +33,7 @@ public class ChartHelper {
         return y;
     }
 
+    @SuppressWarnings("ResultOfMethodCallIgnored")
     public static String[] getDates(Long days, List<DayCountryEntity> rkiData) {
         ArrayList<String> dates = new ArrayList<>();
 
@@ -45,7 +48,7 @@ public class ChartHelper {
         return dates.toArray(new String[0]);
     }
 
-    public static Long[] calculateDayToDayDifference(ArrayList<Long> arrayList) {
+    public static Long[] calculateDayToDayDifference(List<Long> arrayList) {
         Long[] dayToDayArray = new Long[arrayList.size() - 1];
 
         for (int i = 0; i < dayToDayArray.length; i++) {

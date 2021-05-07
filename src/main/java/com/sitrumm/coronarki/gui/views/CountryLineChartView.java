@@ -50,6 +50,7 @@ public class CountryLineChartView extends Chart {
         configuration.setPlotOptions(plotOptions);
     }
 
+    @SuppressWarnings("ResultOfMethodCallIgnored")
     private Long[] getDeaths(long days) {
         ArrayList<Long> deaths = new ArrayList<>();
 

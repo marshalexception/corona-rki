@@ -8,13 +8,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Getter
 @NoArgsConstructor
 @ToString
-public class CountryEntity {
+public class CountryEntity implements Serializable {
 
     @JsonProperty("ID")
     String id;
@@ -51,6 +52,6 @@ public class CountryEntity {
     LocalDate date;
 
     @JsonProperty("Premium")
-    PremiumEntity premium;
+    transient PremiumEntity premium;
 
 }
