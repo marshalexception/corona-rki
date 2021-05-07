@@ -8,6 +8,7 @@ import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.page.AppShellConfigurator;
+import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.theme.Theme;
 import com.vaadin.flow.theme.lumo.Lumo;
@@ -19,6 +20,7 @@ import javax.annotation.PostConstruct;
 @Route
 @Theme(value = Lumo.class, variant = Lumo.DARK)
 @Slf4j
+@PageTitle("Corona Virus Dashboard")
 public class MainView extends VerticalLayout implements AppShellConfigurator {
 
     @Autowired
@@ -30,7 +32,7 @@ public class MainView extends VerticalLayout implements AppShellConfigurator {
     private final CountryAndDateView countryAndDateView;
 
     public MainView() {
-        H1 title = new H1("RKI Data Application");
+        H1 title = new H1("Corona Virus Dashboard");
         HorizontalLayout overview = new HorizontalLayout(title);
         add(overview);
 
