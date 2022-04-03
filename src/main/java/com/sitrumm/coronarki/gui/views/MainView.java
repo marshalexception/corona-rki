@@ -1,6 +1,6 @@
 package com.sitrumm.coronarki.gui.views;
 
-import com.sitrumm.coronarki.service.CovidService;
+import com.sitrumm.coronarki.adapter.CovidAdapter;
 import com.vaadin.flow.component.Text;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.icon.Icon;
@@ -24,8 +24,7 @@ import javax.annotation.PostConstruct;
 public class MainView extends VerticalLayout implements AppShellConfigurator {
 
     @Autowired
-    private transient CovidService covidService;
-
+    private transient CovidAdapter covidAdapter;
 
     private final SummaryView summaryView;
 
@@ -54,8 +53,8 @@ public class MainView extends VerticalLayout implements AppShellConfigurator {
      */
     @PostConstruct
     private void fillGUI() {
-        summaryView.fillGUI(covidService);
-        countryAndDateView.setServiceAndInitData(covidService);
+        summaryView.fillGUI(covidAdapter);
+        countryAndDateView.setServiceAndInitData(covidAdapter);
     }
 
 }

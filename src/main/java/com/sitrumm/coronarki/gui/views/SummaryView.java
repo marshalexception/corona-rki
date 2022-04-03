@@ -2,7 +2,7 @@ package com.sitrumm.coronarki.gui.views;
 
 import com.sitrumm.coronarki.model.GlobalEntity;
 import com.sitrumm.coronarki.model.SummaryEntity;
-import com.sitrumm.coronarki.service.CovidService;
+import com.sitrumm.coronarki.adapter.CovidAdapter;
 import com.vaadin.flow.component.accordion.Accordion;
 import com.vaadin.flow.component.accordion.AccordionPanel;
 import com.vaadin.flow.component.details.DetailsVariant;
@@ -14,7 +14,7 @@ import java.text.NumberFormat;
 
 public class SummaryView extends VerticalLayout {
 
-    private transient CovidService covidService;
+    private transient CovidAdapter covidAdapter;
 
     // GUI
 
@@ -34,8 +34,8 @@ public class SummaryView extends VerticalLayout {
         summaryInformation = new VerticalLayout();
     }
 
-    public void fillGUI(CovidService covidService) {
-        this.covidService = covidService;
+    public void fillGUI(CovidAdapter covidAdapter) {
+        this.covidAdapter = covidAdapter;
         GlobalEntity globalData = getData().getGlobal();
 
         TextField dateTextField = new TextField();
@@ -93,7 +93,7 @@ public class SummaryView extends VerticalLayout {
     }
 
     private SummaryEntity getData() {
-        return covidService.getCovidSummary();
+        return covidAdapter.getCovidSummary();
     }
 
 }

@@ -1,4 +1,4 @@
-package com.sitrumm.coronarki.service;
+package com.sitrumm.coronarki.adapter;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -18,7 +18,7 @@ import java.util.List;
 
 @Component
 @Slf4j
-public class CovidService {
+public class CovidAdapter {
 
     @Value("${covid.basepath}")
     private String basePath;
@@ -31,7 +31,7 @@ public class CovidService {
 
     private final RestTemplate restTemplate;
 
-    public CovidService(RestTemplateBuilder restTemplateBuilder) {
+    public CovidAdapter(RestTemplateBuilder restTemplateBuilder) {
         this.restTemplate = restTemplateBuilder.build();
     }
 

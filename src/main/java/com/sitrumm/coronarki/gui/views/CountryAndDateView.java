@@ -2,7 +2,7 @@ package com.sitrumm.coronarki.gui.views;
 
 import com.sitrumm.coronarki.model.DayCountryEntity;
 import com.sitrumm.coronarki.model.SummaryEntity;
-import com.sitrumm.coronarki.service.CovidService;
+import com.sitrumm.coronarki.adapter.CovidAdapter;
 import com.vaadin.flow.component.AbstractField;
 import com.vaadin.flow.component.ClickEvent;
 import com.vaadin.flow.component.ComponentEventListener;
@@ -33,7 +33,7 @@ import java.util.Objects;
 @Slf4j
 public class CountryAndDateView extends VerticalLayout implements ComponentEventListener<ClickEvent<Button>> {
 
-    private transient CovidService covidService;
+    private transient CovidAdapter covidAdapter;
 
     // GUI
 
@@ -88,7 +88,7 @@ public class CountryAndDateView extends VerticalLayout implements ComponentEvent
             clearGUI();
             if (filterForCountry.getValue() != null) {
                 String searchCountry = filterForCountry.getValue().toLowerCase();
-                List<DayCountryEntity> rkiData = covidService.getDataByCountryDayOne(searchCountry);
+                List<DayCountryEntity> rkiData = covidAdapter.getDataByCountryDayOne(searchCountry);
                 if (!dayRangeTextField.getValue().isEmpty()) {
                     fillGrid(rkiData, Long.parseLong(dayRangeTextField.getValue()));
                 } else {
@@ -109,7 +109,7 @@ public class CountryAndDateView extends VerticalLayout implements ComponentEvent
 
     private List<String> loadCountries() {
         List<String> countries = new ArrayList<>();
-        SummaryEntity covidSummary = covidService.getCovidSummary();
+        SummaryEntity covidSummary = covidAdapter.getCovidSummary();
         if (covidSummary != null) {
             covidSummary.getCountries().forEach(country -> countries.add(country.getCountry()));
         }
@@ -168,8 +168,8 @@ public class CountryAndDateView extends VerticalLayout implements ComponentEvent
         }
     }
 
-    public void setServiceAndInitData(CovidService covidService) {
-        this.covidService = covidService;
+    public void setServiceAndInitData(CovidAdapter covidAdapter) {
+        this.covidAdapter = covidAdapter;
         filterForCountry.setItems(loadCountries());
     }
 }

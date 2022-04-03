@@ -10,6 +10,4 @@ public class CoronaRkiApplication {
         SpringApplication.run(CoronaRkiApplication.class, args);
     }
 
-//	https://www.baeldung.com/spring-boot-vaadin todo
-//	https://documenter.getpostman.com/view/10808728/SzS8rjbc
 }
