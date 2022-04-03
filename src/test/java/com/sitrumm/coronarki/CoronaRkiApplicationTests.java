@@ -20,11 +20,7 @@ class CoronaRkiApplicationTests {
     String basePath;
 
     @Test
-    void contextLoads() {
-    }
-
-    @Test
-    public void testApiAvailability() {
+    void testApiAvailability() {
         RestTemplateBuilder restTemplateBuilder = new RestTemplateBuilder();
         RestTemplate restTemplate = restTemplateBuilder.build();
 
@@ -35,6 +31,7 @@ class CoronaRkiApplicationTests {
                 () -> assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK),
                 () -> assertThat(response.getBody()).isNotNull()
         );
+
         log.info(response.getBody());
     }
 
